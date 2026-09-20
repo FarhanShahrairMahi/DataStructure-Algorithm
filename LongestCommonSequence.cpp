@@ -87,6 +87,9 @@ void solve (string s1, string s2)
         cout << s2[st.top()-1] << endl;
         st.pop();
     }
+
+    // We may find other Longest Common Subsequence by first finding the Largest value from array in other places
+    // then we can go with the direction and find the subsequences
 }
 
 int main()
