@@ -1,5 +1,3 @@
-//Farhan Shahriar Mahi
-//Longest Common Subsequence
 #include <iostream>
 #include<stack>
 using namespace std;
