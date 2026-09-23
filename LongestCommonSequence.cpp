@@ -53,7 +53,7 @@ void solve (string s1, string s2)
             }
         }
     }
-    
+
     queue<Node> qu;
     qu.push(arr[row_m][col_n]);
 
@@ -112,9 +112,6 @@ void solve (string s1, string s2)
     for (auto a : vs) {
         cout << a << endl;
     }
-
-    // We may find other Longest Common Subsequence by first finding the Largest value from array in other places
-    // then we can go with the direction and find the subsequences
 }
 
 int main()
