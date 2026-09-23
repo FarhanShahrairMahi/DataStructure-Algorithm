@@ -1,5 +1,7 @@
 #include <iostream>
 #include<stack>
+#include<queue>
+#include<algorithm>
 using namespace std;
 
 typedef struct node Node;
@@ -51,41 +53,64 @@ void solve (string s1, string s2)
             }
         }
     }
+    
+    queue<Node> qu;
+    qu.push(arr[row_m][col_n]);
 
-    stack<int> st;
-
-    row_i = row_m;
-    col_j = col_n;
-    int i = 1;
-    Node n1, n2, *n3;
-
-    n1 = arr[row_i][col_j];
-
-    if (n1.next != nullptr) {
-    n2 = *(n1.next);
+    for (int i = 1; i < col_n; i++) {
+        if (arr[row_m][col_n].item == arr[row_m][i].item) {
+            qu.push(arr[row_m][i]);
+        }
+    }
+    for (int i = 1; i < row_m; i++) {
+        if (arr[row_m][col_n].item == arr[i][col_n].item) {
+            qu.push(arr[i][col_n]);
+        }
     }
 
-    n3 = n2.next;
+    vector<string> vs(qu.size());
+    int i = 0;
 
-    while (n3 != nullptr) {
-        if (n2.item < n1.item) {
-            st.push(n1.j_index);
-        }
-        n1 = n2;
-        i++;
+    while (!qu.empty()) {
+        stack<int> st;
+
+        Node n1, n2, *n3;
+
+        n1 = qu.front();
+
         if (n1.next != nullptr) {
-            n2 = *(n1.next);
+        n2 = *(n1.next);
         }
+
         n3 = n2.next;
-    }
 
-    if (n2.item < n1.item) {
+        while (n3 != nullptr) {
+            if (n2.item < n1.item) {
+                st.push(n1.j_index);
+            }
+            n1 = n2;
+            if (n1.next != nullptr) {
+                n2 = *(n1.next);
+            }
+            n3 = n2.next;
+        }
+
+        if (n2.item < n1.item) {
         st.push(n1.j_index);
+        }
+
+        while (!st.empty()) {
+            vs[i] += s2[st.top()-1];
+            st.pop();
+        }
+        i++;
+        qu.pop();
     }
 
-    while (!st.empty()) {
-        cout << s2[st.top()-1] << endl;
-        st.pop();
+    vs.erase(unique(vs.begin(), vs.end()), vs.end());
+
+    for (auto a : vs) {
+        cout << a << endl;
     }
 
     // We may find other Longest Common Subsequence by first finding the Largest value from array in other places
